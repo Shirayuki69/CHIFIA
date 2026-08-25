@@ -53,17 +53,19 @@ MODEL_MODE = "demo"
 
 def try_load_yolo():
     global MODEL, MODEL_MODE
-    model_path = os.path.join("model", "best.pt")
-    if os.path.exists(model_path):
+    model_onnx = os.path.join("model", "best.onnx")
+    model_pt = os.path.join("model", "best.pt")
+    model_path = model_onnx if os.path.exists(model_onnx) else (model_pt if os.path.exists(model_pt) else None)
+    if model_path:
         try:
             from ultralytics import YOLO
-            MODEL = YOLO(model_path)
+            MODEL = YOLO(model_path, task='detect')
             MODEL_MODE = "yolo"
-            print(f"[CHIFIA] OK YOLOv26 model loaded: {model_path}")
+            print(f"[CHIFIA] OK YOLO model loaded: {model_path}")
         except Exception as e:
-            print(f"[CHIFIA] WARN YOLOv26 load failed: {e} -> using demo mode")
+            print(f"[CHIFIA] WARN YOLO load failed: {e} -> using demo mode")
     else:
-        print("[CHIFIA] DEMO mode (no model/best.pt found)")
+        print("[CHIFIA] DEMO mode (no model found)")
 
 try_load_yolo()
 
