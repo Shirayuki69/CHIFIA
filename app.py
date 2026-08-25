@@ -17,8 +17,12 @@ app = Flask(__name__)
 CORS(app)
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max
 
-UPLOAD_FOLDER = 'static/uploads'
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+UPLOAD_FOLDER = os.path.join('/tmp', 'uploads') if os.environ.get('VERCEL') else os.path.join(BASE_DIR, 'static', 'uploads')
+try:
+    os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+except Exception as e:
+    print(f"[CHIFIA] WARN upload dir creation: {e}")
 
 # ──────────────────────────────────────────────
 # DISEASE CLASS CONFIG
@@ -52,8 +56,8 @@ MODEL_TYPE = "demo" # "onnx", "ultralytics", or "demo"
 
 def try_load_yolo():
     global MODEL, MODEL_TYPE
-    model_onnx = os.path.join("model", "best.onnx")
-    model_pt = os.path.join("model", "best.pt")
+    model_onnx = os.path.join(BASE_DIR, "model", "best.onnx")
+    model_pt = os.path.join(BASE_DIR, "model", "best.pt")
 
     if os.path.exists(model_onnx):
         try:
