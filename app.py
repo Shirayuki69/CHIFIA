@@ -57,9 +57,10 @@ TREATMENT = {
 # LOAD MODEL (YOLOv26 or Demo)
 MODEL = None
 MODEL_TYPE = "demo" # "onnx", "ultralytics", or "demo"
+MODEL_MODE = "demo"
 
 def try_load_yolo():
-    global MODEL, MODEL_TYPE
+    global MODEL, MODEL_TYPE, MODEL_MODE
     model_onnx = os.path.join(BASE_DIR, "model", "best.onnx")
     model_pt = os.path.join(BASE_DIR, "model", "best.pt")
 
@@ -68,6 +69,7 @@ def try_load_yolo():
             import onnxruntime as ort
             MODEL = ort.InferenceSession(model_onnx, providers=['CPUExecutionProvider'])
             MODEL_TYPE = "onnx"
+            MODEL_MODE = "onnx"
             print(f"[CHIFIA] OK loaded ONNX model: {model_onnx}")
             return
         except Exception as e:
@@ -78,11 +80,14 @@ def try_load_yolo():
             from ultralytics import YOLO
             MODEL = YOLO(model_pt, task='detect')
             MODEL_TYPE = "ultralytics"
+            MODEL_MODE = "ultralytics"
             print(f"[CHIFIA] OK loaded PyTorch YOLO model: {model_pt}")
             return
         except Exception as e:
             print(f"[CHIFIA] WARN ultralytics load failed: {e}")
 
+    MODEL_TYPE = "demo"
+    MODEL_MODE = "demo"
     print("[CHIFIA] Using DEMO mode")
 
 try_load_yolo()
