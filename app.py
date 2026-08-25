@@ -13,11 +13,15 @@ from flask_cors import CORS
 from PIL import Image, ImageDraw, ImageFont
 
 
-app = Flask(__name__)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+app = Flask(
+    __name__,
+    template_folder=os.path.join(BASE_DIR, 'templates'),
+    static_folder=os.path.join(BASE_DIR, 'static')
+)
 CORS(app)
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 UPLOAD_FOLDER = os.path.join('/tmp', 'uploads') if os.environ.get('VERCEL') else os.path.join(BASE_DIR, 'static', 'uploads')
 try:
     os.makedirs(UPLOAD_FOLDER, exist_ok=True)
@@ -437,7 +441,7 @@ def detect():
             return jsonify({"error": "No image provided"}), 400
 
         img = read_image(image_bytes)
-        detections = yolo_detect(img) if MODEL_MODE == "yolo" else demo_detect(img)
+        detections = yolo_detect(img)
         annotated = draw_boxes(img, detections)
         summary = build_summary(detections)
 
@@ -446,7 +450,7 @@ def detect():
             "detections": detections,
             "annotated_image": pil_to_b64(annotated),
             "summary": summary,
-            "mode": MODEL_MODE,
+            "mode": MODEL_TYPE,
             "total": len(detections),
         })
     except Exception as e:
