@@ -1,6 +1,6 @@
 """
 CHIFIA - Chili Intelligent Farming with AI
-Flask Backend (YOLOv26 Compatible)
+Flask Backend (ONNX & YOLO Compatible v2.0)
 """
 
 import os
