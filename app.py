@@ -47,25 +47,35 @@ TREATMENT = {
 
 # ──────────────────────────────────────────────
 # LOAD MODEL (YOLOv26 or Demo)
-# ──────────────────────────────────────────────
 MODEL = None
-MODEL_MODE = "demo"
+MODEL_TYPE = "demo" # "onnx", "ultralytics", or "demo"
 
 def try_load_yolo():
-    global MODEL, MODEL_MODE
+    global MODEL, MODEL_TYPE
     model_onnx = os.path.join("model", "best.onnx")
     model_pt = os.path.join("model", "best.pt")
-    model_path = model_onnx if os.path.exists(model_onnx) else (model_pt if os.path.exists(model_pt) else None)
-    if model_path:
+
+    if os.path.exists(model_onnx):
+        try:
+            import onnxruntime as ort
+            MODEL = ort.InferenceSession(model_onnx, providers=['CPUExecutionProvider'])
+            MODEL_TYPE = "onnx"
+            print(f"[CHIFIA] OK loaded ONNX model: {model_onnx}")
+            return
+        except Exception as e:
+            print(f"[CHIFIA] WARN onnxruntime load failed: {e}")
+
+    if os.path.exists(model_pt):
         try:
             from ultralytics import YOLO
-            MODEL = YOLO(model_path, task='detect')
-            MODEL_MODE = "yolo"
-            print(f"[CHIFIA] OK YOLO model loaded: {model_path}")
+            MODEL = YOLO(model_pt, task='detect')
+            MODEL_TYPE = "ultralytics"
+            print(f"[CHIFIA] OK loaded PyTorch YOLO model: {model_pt}")
+            return
         except Exception as e:
-            print(f"[CHIFIA] WARN YOLO load failed: {e} -> using demo mode")
-    else:
-        print("[CHIFIA] DEMO mode (no model found)")
+            print(f"[CHIFIA] WARN ultralytics load failed: {e}")
+
+    print("[CHIFIA] Using DEMO mode")
 
 try_load_yolo()
 
@@ -185,15 +195,37 @@ def _iou(a, b):
     return inter / (area_a + area_b - inter)
 
 def yolo_detect(img: Image.Image) -> list:
-    # Let YOLO handle the resizing natively. Use imgsz=640 (standard) to prevent macro shots from becoming too large for the model's receptive field.
-    results = MODEL.predict(source=img, conf=0.20, iou=0.45, imgsz=640, agnostic_nms=True, verbose=False)
+    if MODEL_TYPE == "onnx":
+        import numpy as np
+        W, H = img.size
+        img_resized = img.resize((640, 640), Image.BILINEAR)
+        img_np = np.array(img_resized, dtype=np.float32) / 255.0
+        blob = img_np.transpose(2, 0, 1)[None, ...].astype(np.float32)
 
-    raw = []
-    for box in results[0].boxes:
-        cid  = int(box.cls[0])
-        conf = float(box.conf[0])
-        xyxy = box.xyxy[0].cpu().numpy().tolist()
-        raw.append({"cid": cid, "conf": conf, "xyxy": xyxy})
+        input_name = MODEL.get_inputs()[0].name
+        res = MODEL.run(None, {input_name: blob})[0]
+
+        raw = []
+        for pred in res[0]:
+            conf = float(pred[4])
+            if conf >= 0.20:
+                cid = int(pred[5])
+                x1 = max(0, min(W, float(pred[0]) * (W / 640.0)))
+                y1 = max(0, min(H, float(pred[1]) * (H / 640.0)))
+                x2 = max(0, min(W, float(pred[2]) * (W / 640.0)))
+                y2 = max(0, min(H, float(pred[3]) * (H / 640.0)))
+                raw.append({"cid": cid, "conf": conf, "xyxy": [x1, y1, x2, y2]})
+
+    elif MODEL_TYPE == "ultralytics":
+        results = MODEL.predict(source=img, conf=0.20, iou=0.45, imgsz=640, agnostic_nms=True, verbose=False)
+        raw = []
+        for box in results[0].boxes:
+            cid  = int(box.cls[0])
+            conf = float(box.conf[0])
+            xyxy = box.xyxy[0].cpu().numpy().tolist()
+            raw.append({"cid": cid, "conf": conf, "xyxy": xyxy})
+    else:
+        return demo_detect(img)
 
     # Manual NMS: remove boxes that overlap > 40% with a higher-confidence box
     raw.sort(key=lambda x: x["conf"], reverse=True)
