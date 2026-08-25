@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CHIFIA — Deteksi Penyakit Tanaman Cabai dengan YOLOv26</title>
+  <meta name="description" content="Sistem deteksi penyakit tanaman cabai berbasis YOLOv26. Cepat, akurat, dan mudah digunakan."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/static/css/landing.css"/>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <a href="/" class="nav-brand">
+        <div class="brand-logo">
+          <img src="/static/img/logo_chifia.png" alt="Chifia Logo" style="width:40px;height:40px;object-fit:contain;"/>
+          <span style="font-size:28px; font-weight:800; margin-left:8px;">Chifia</span>
+        </div>
+      </a>
+      <div class="nav-links">
+        <a href="/" class="nav-link active">Beranda</a>
+        <a href="/#artikel" class="nav-link">Artikel</a>
+        <a href="/about" class="nav-link">Tentang</a>
+      </div>
+      <div class="nav-right">
+        <a href="/deteksi" class="btn btn-primary nav-cta">Mulai Deteksi &rarr;</a>
+        <button class="nav-hamburger" onclick="toggleMobileMenu()">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="/" class="mobile-link active">Beranda</a>
+    <a href="/#artikel" class="mobile-link">Artikel</a>
+    <a href="/about" class="mobile-link">Tentang</a>
+    <div class="mobile-cta">
+      <a href="/deteksi" class="btn btn-primary">Mulai Deteksi &rarr;</a>
+    </div>
+  </div>
+
+  <script>
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      menu.classList.toggle('active');
+    }
+  </script>
+
+  <!-- HERO SECTION -->
+  <header class="hero">
+    <div class="container hero-inner">
+      <div class="hero-content">
+        <h1 class="hero-title">Deteksi Penyakit<br/>Tanaman Cabai<br/>dengan YOLOv26</h1>
+        <p class="hero-desc">
+          Chifia adalah sistem cerdas berbasis model YOLOv26 yang mendeteksi penyakit tanaman cabai secara akurat, membantu Anda menjaga panen tetap optimal.
+        </p>
+        <div class="hero-actions">
+          <a href="/deteksi" class="btn btn-primary btn-lg">Mulai Deteksi Sekarang</a>
+          <a href="/about" class="btn btn-outline btn-lg">Pelajari Lebih Lanjut</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="/static/img/hero.png" alt="Chifia YOLOv26 Detection" onerror="this.style.display='none'"/>
+      </div>
+    </div>
+  </header>
+
+  <!-- STATS BAR -->
+  <section class="stats-bar">
+    <div class="container stats-inner">
+      <div class="stat-item">
+        <div class="stat-icon">🦠</div>
+        <div class="stat-content">
+          <h4>5 Jenis</h4>
+          <p>Penyakit Terdeteksi</p>
+        </div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon">🎯</div>
+        <div class="stat-content">
+          <h4>95%+</h4>
+          <p>Akurasi Deteksi</p>
+        </div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon">⚡</div>
+        <div class="stat-content">
+          <h4>Real-time</h4>
+          <p>Analisis YOLOv26</p>
+        </div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon">🌟</div>
+        <div class="stat-content">
+          <h4>Gratis & Mudah</h4>
+          <p>Untuk Semua Petani</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS — Cara Kerja CHIFIA -->
+  <section class="workflow-section" id="cara-kerja">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="workflow-title">CARA KERJA CHIFIA</h2>
+        <p class="workflow-subtitle">Chifia membantu Anda mendeteksi penyakit tanaman cabai dengan cepat, akurat,<br/>dan mudah hanya dalam beberapa langkah.</p>
+      </div>
+
+      <!-- 4 Steps Grid -->
+      <div class="how-steps-new">
+
+        <!-- Step 1 -->
+        <div class="how-step-new">
+          <div class="step-badge">1</div>
+          <h4 class="step-title-new">Ambil Gambar</h4>
+          <p class="step-desc-new">Ambil foto tanaman cabai menggunakan kamera secara langsung.</p>
+          <div class="step-visual">
+            <img src="/static/img/step1_ambil.png" alt="Ambil Gambar dengan Kamera" onerror="this.style.display='none'"/>
+          </div>
+        </div>
+
+        <!-- Arrow 1 -->
+        <div class="step-arrow" aria-hidden="true">
+          <svg viewBox="0 0 60 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="0" y1="10" x2="48" y2="10" stroke="#166534" stroke-width="2" stroke-dasharray="5 4"/>
+            <polyline points="42,4 52,10 42,16" stroke="#166534" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="how-step-new">
+          <div class="step-badge">2</div>
+          <h4 class="step-title-new">Unggah Gambar</h4>
+          <p class="step-desc-new">Atau unggah foto tanaman cabai dari galeri perangkat Anda.</p>
+          <div class="step-visual step-visual-upload">
+            <img src="/static/img/step2_unggah.png" alt="Unggah Gambar" onerror="this.style.display='none'"/>
+            <div class="upload-label">Format: JPG, PNG<br/>Maks. 5MB</div>
+          </div>
+        </div>
+
+        <!-- Arrow 2 -->
+        <div class="step-arrow" aria-hidden="true">
+          <svg viewBox="0 0 60 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="0" y1="10" x2="48" y2="10" stroke="#166534" stroke-width="2" stroke-dasharray="5 4"/>
+            <polyline points="42,4 52,10 42,16" stroke="#166534" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="how-step-new">
+          <div class="step-badge">3</div>
+          <h4 class="step-title-new">Analisis &amp; Prediksi</h4>
+          <p class="step-desc-new">Sistem dengan model Yolov26 akan menganalisis gambar dan memprediksi kemungkinan penyakit pada tanaman cabai.</p>
+          <div class="step-visual">
+            <img src="/static/img/step3_analisis.png" alt="Analisis AI" onerror="this.style.display='none'"/>
+          </div>
+        </div>
+
+        <!-- Arrow 3 -->
+        <div class="step-arrow" aria-hidden="true">
+          <svg viewBox="0 0 60 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="0" y1="10" x2="48" y2="10" stroke="#166534" stroke-width="2" stroke-dasharray="5 4"/>
+            <polyline points="42,4 52,10 42,16" stroke="#166534" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="how-step-new">
+          <div class="step-badge">4</div>
+          <h4 class="step-title-new">Hasil &amp; Rekomendasi</h4>
+          <p class="step-desc-new">Lihat hasil deteksi beserta tingkat keyakinan dan rekomendasi penanganan yang disarankan.</p>
+          <div class="step-visual">
+            <img src="/static/img/step4_hasil.png" alt="Hasil Deteksi" onerror="this.style.display='none'"/>
+          </div>
+        </div>
+
+      </div><!-- end .how-steps-new -->
+
+    </div>
+  </section>
+
+  <!-- DISEASES SECTION -->
+  <section class="diseases-section" style="padding: 40px 0 80px; background: #f4f9f5; border-top: 1px solid #e2ede5; border-bottom: 1px solid #e2ede5;">
+    <div class="container">
+      <div class="section-header">
+        <h2>Penyakit yang Terdeteksi</h2>
+        <p>Model YOLOv26 kami dilatih untuk mengenali berbagai kondisi daun cabai.</p>
+      </div>
+      <div class="disease-grid">
+        <div class="disease-card">
+          <div class="disease-icon">
+            <img src="/static/img/daun_bercak.png" alt="Bercak Daun" style="width:100%;height:130px;border-radius:8px;object-fit:cover;box-shadow:0 4px 12px rgba(0,0,0,0.1);"/>
+          </div>
+          <h3>Bercak Daun</h3>
+          <p>Infeksi jamur yang menyebabkan bercak kuning/coklat pada daun.</p>
+        </div>
+        <div class="disease-card">
+          <div class="disease-icon">
+            <img src="/static/img/daun_keriting.png" alt="Daun Keriting" style="width:100%;height:130px;border-radius:8px;object-fit:cover;box-shadow:0 4px 12px rgba(0,0,0,0.1);"/>
+          </div>
+          <h3>Daun Keriting</h3>
+          <p>Disebabkan oleh hama atau virus, membuat daun mengerut.</p>
+        </div>
+        <div class="disease-card">
+          <div class="disease-icon">
+            <img src="/static/img/daun_kutu_kebul.png" alt="Kutu Kebul" style="width:100%;height:130px;border-radius:8px;object-fit:cover;box-shadow:0 4px 12px rgba(0,0,0,0.1);"/>
+          </div>
+          <h3>Kutu Kebul</h3>
+          <p>Hama putih kecil di balik daun yang menghisap nutrisi tanaman.</p>
+        </div>
+        <div class="disease-card">
+          <div class="disease-icon">
+            <img src="/static/img/daun_virus_kuning.png" alt="Virus Kuning" style="width:100%;height:130px;border-radius:8px;object-fit:cover;box-shadow:0 4px 12px rgba(0,0,0,0.1);"/>
+          </div>
+          <h3>Virus Kuning</h3>
+          <p>Menyebabkan daun menguning dan menghambat pertumbuhan.</p>
+        </div>
+        <div class="disease-card">
+          <div class="disease-icon">
+            <img src="/static/img/daun_sehat.png" alt="Daun Sehat" style="width:100%;height:130px;border-radius:8px;object-fit:cover;box-shadow:0 4px 12px rgba(0,0,0,0.1);border:2px solid #22C55E;"/>
+          </div>
+          <h3>Daun Sehat</h3>
+          <p>Kondisi daun yang normal tanpa indikasi hama atau penyakit.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARTICLES -->
+  <section class="articles-section" id="artikel">
+    <div class="container">
+      <div class="section-header split">
+        <div>
+          <h2>Artikel &amp; Informasi Terkini</h2>
+          <p>Temukan artikel seputar penyakit tanaman cabai, aplikasi CHIFIA, dan teknologi deep learning YOLO.</p>
+        </div>
+      </div>
+
+      <div class="articles-grid">
+
+        <!-- Artikel 1: Penyakit Cabai -->
+        <a href="/artikel/1" class="article-card">
+          <div class="article-img">
+            <span class="article-tag">Penyakit Cabai</span>
+            <img src="/static/img/article_anthracnose.png" alt="Penyakit Tanaman Cabai" onerror="this.src='/static/img/hero.png'"/>
+          </div>
+          <div class="article-content">
+            <div class="article-source">🌿 Penyakit &amp; Hama Cabai</div>
+            <h3>Mengenal 5 Penyakit Utama Tanaman Cabai &amp; Cara Penanganannya</h3>
+            <p>Panduan lengkap mengenali gejala Bercak Daun, Daun Keriting, Kutu Kebul, Virus Kuning, dan Bercak Daun beserta rekomendasi penanganannya.</p>
+          </div>
+        </a>
+
+        <!-- Artikel 2: Aplikasi CHIFIA -->
+        <a href="/artikel/2" class="article-card">
+          <div class="article-img">
+            <span class="article-tag">Aplikasi CHIFIA</span>
+            <img src="/static/img/hero_illustration.png" alt="Aplikasi CHIFIA AI" onerror="this.src='/static/img/hero.png'"/>
+          </div>
+          <div class="article-content">
+            <div class="article-source">📱 Solusi Cerdas AI</div>
+            <h3>Aplikasi CHIFIA: Solusi Cerdas Deteksi Penyakit Cabai Berbasis AI</h3>
+            <p>Bagaimana aplikasi web CHIFIA membantu petani mendeteksi penyakit cabai secara instan hanya dengan mengambil foto dari kamera smartphone.</p>
+          </div>
+        </a>
+
+        <!-- Artikel 3: Model YOLOv26 (AI) -->
+        <a href="/artikel/3" class="article-card">
+          <div class="article-img">
+            <span class="article-tag">Model Prediksi</span>
+            <img src="/static/img/article_ai.png" alt="Model YOLOv26" onerror="this.src='/static/img/hero.png'"/>
+          </div>
+          <div class="article-content">
+            <div class="article-source">🤖 Deep Learning YOLOv26</div>
+            <h3>Peran Model Deep Learning YOLOv26 dalam Deteksi Objek Real-Time</h3>
+            <p>Memahami arsitektur jaringan saraf YOLOv26 (You Only Look Once) dan keunggulannya dalam mengenali lesi penyakit tanaman secara instan.</p>
+          </div>
+        </a>
+
+        <!-- Artikel 4: Optimasi AI -->
+        <a href="/artikel/4" class="article-card">
+          <div class="article-img">
+            <span class="article-tag">Optimasi AI</span>
+            <img src="/static/img/article_optimize.png" alt="Optimasi Model YOLOv26" onerror="this.src='/static/img/hero.png'"/>
+          </div>
+          <div class="article-content">
+            <div class="article-source">⚡ Akurasi &amp; Fine-Tuning</div>
+            <h3>Cara Mengoptimalkan Akurasi Model YOLOv26 untuk Deteksi Penyakit Cabai</h3>
+            <p>Teknik data augmentation, fine-tuning dataset lokal, dan penyesuaian threshold confidence untuk meningkatkan presisi AI hingga di atas 95%.</p>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BOTTOM -->
+  <section class="cta-bottom text-center">
+    <div class="container" style="max-width: 600px; padding: 60px 0;">
+      <h2 style="font-size: 36px; margin-bottom: 20px;">Siap Mulai?</h2>
+      <p style="color: var(--text-muted); margin-bottom: 30px; font-size: 18px;">Pastikan tanaman cabai Anda sehat. Coba deteksi sekarang secara gratis!</p>
+      <a href="/deteksi" class="btn btn-primary btn-lg">Mulai Deteksi &rarr;</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer-landing">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col brand-col">
+          <div class="brand-logo" style="display:flex; align-items:center;">
+            <img src="/static/img/logo_chifia.png" alt="Chifia Logo" style="width:40px;height:40px;object-fit:cover;border-radius:50%;"/>
+            <span style="font-size:28px; font-family:'Outfit',sans-serif; font-weight:800; color:#ffffff; margin-left:10px;">Chifia</span>
+          </div>
+          <p>Sistem kecerdasan buatan terpadu berbasis model YOLOv26 untuk deteksi &amp; identifikasi penyakit tanaman cabai di Indonesia secara real-time.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navigasi</h4>
+          <a href="/">Beranda</a>
+          <a href="/deteksi">Deteksi YOLOv26</a>
+          <a href="/#artikel">Artikel &amp; Panduan</a>
+          <a href="/about">Tentang CHIFIA</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Penyakit Cabai</h4>
+          <a href="/#artikel">Bercak Daun (Cercospora capsici)</a>
+          <a href="/#artikel">Daun Keriting (PYLCV)</a>
+          <a href="/#artikel">Virus Kuning (Begomovirus)</a>
+          <a href="/#artikel">Kutu Kebul (Bemisia tabaci)</a>
+          <a href="/#artikel">Daun Sehat</a>
+        </div>
+
+        <div class="footer-col contact-col">
+          <h4>Kontak &amp; Layanan</h4>
+          <p style="display:flex; align-items:center; gap:10px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            info@chifia.id
+          </p>
+          <p style="display:flex; align-items:center; gap:10px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Indonesia
+          </p>
+          <p style="display:flex; align-items:center; gap:10px; font-size:12px; color:#64748b; margin-top:12px;">
+            CHIFIA Web App v2.0
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 CHIFIA (Chili Intelligent Farming with AI). Hak Cipta Dilindungi.</p>
+        <p style="display:flex; align-items:center; gap:6px;">
+          Dibuat dengan 
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#ef4444" stroke="none"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> 
+          untuk Petani Indonesia
+        </p>
+      </div>
+    </div>
+  </footer>
+  <script>
+    function toggleMobileMenu() {
+      document.getElementById('mobileMenu').classList.toggle('active');
+    }
+    // Close menu on link click
+    document.querySelectorAll('.mobile-link').forEach(function(link) {
+      link.addEventListener('click', function() {
+        document.getElementById('mobileMenu').classList.remove('active');
+      });
+    });
+    // Navbar scroll effect
+    window.addEventListener('scroll', function() {
+      var nav = document.querySelector('.navbar');
+      if (nav) nav.style.boxShadow = window.scrollY > 10 ? '0 4px 20px rgba(0,0,0,0.08)' : '';
+    });
+  </script>
+</body>
+</html>

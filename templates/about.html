@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tentang CHIFIA — Karya Inovasi OPSI &amp; Profil Pengembang</title>
+  <meta name="description" content="Tentang CHIFIA — Karya riset dan inovasi teknologi deteksi penyakit cabai AI YOLOv26 untuk Olimpiade Penelitian Siswa Indonesia (OPSI)."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/static/css/landing.css"/>
+</head>
+<body class="bg-light-theme">
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <a href="/" class="nav-brand">
+        <div class="brand-logo">
+          <img src="/static/img/logo_chifia.png" alt="Chifia Logo" style="width:40px;height:40px;object-fit:contain;"/>
+          <span style="font-size:28px; font-weight:800; margin-left:8px;">Chifia</span>
+        </div>
+      </a>
+      <div class="nav-links">
+        <a href="/" class="nav-link">Beranda</a>
+        <a href="/#artikel" class="nav-link">Artikel</a>
+        <a href="/about" class="nav-link active">Tentang</a>
+      </div>
+      <div class="nav-right">
+        <a href="/deteksi" class="btn btn-primary nav-cta">Mulai Deteksi &rarr;</a>
+        <button class="nav-hamburger" onclick="toggleMobileMenu()">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="/" class="mobile-link">Beranda</a>
+    <a href="/#artikel" class="mobile-link">Artikel</a>
+    <a href="/about" class="mobile-link active">Tentang</a>
+    <div class="mobile-cta">
+      <a href="/deteksi" class="btn btn-primary">Mulai Deteksi &rarr;</a>
+    </div>
+  </div>
+
+  <!-- ABOUT HERO -->
+  <section class="about-hero-section">
+    <div class="container">
+      <div class="opsi-badge">
+        Karya Riset &amp; Inovasi OPSI 2026
+      </div>
+      <h1 style="font-size: 38px; font-weight: 800; color: var(--text-main); margin-bottom: 16px;">Tentang CHIFIA &amp; Profil Pengembang</h1>
+      <p style="color: var(--text-muted); max-width: 680px; margin: 0 auto; font-size: 16px; line-height: 1.7;">
+        Sistem kecerdasan buatan terpadu untuk deteksi penyakit tanaman cabai yang dikembangkan sebagai karya ilmiah dan solusi teknologi presisi pada Olimpiade Penelitian Siswa Indonesia (OPSI).
+      </p>
+    </div>
+  </section>
+
+  <!-- TENTANG CHIFIA & OPSI -->
+  <section class="articles-section" style="padding: 16px 0 32px;">
+    <div class="container">
+      <div class="about-opsi-card">
+        <div class="about-opsi-grid">
+          <div class="about-opsi-text">
+            <h3>Tentang Platform CHIFIA</h3>
+            <p><strong>CHIFIA</strong> (<em>Chili Intelligent Farming with AI</em>) merupakan platform sistem kecerdasan buatan terpadu yang dirancang dan dikembangkan secara khusus sebagai karya inovasi teknologi dalam rangka kompetisi <strong>Olimpiade Penelitian Siswa Indonesia (OPSI)</strong>.</p>
+            <p>Pengembangan CHIFIA dilatarbelakangi oleh permasalahan yang dihadapi petani cabai di perkebunan milik <strong>Yayasan Al-Kautsar 561</strong>. Penyakit berikut sering terlambat teridentifikasi hingga menyebabkan gagal panen <strong>60–80%</strong>:</p>
+            <div class="disease-tag-row">
+              <span class="disease-tag">🟡 Bercak Daun <em>(Cercospora capsici)</em></span>
+              <span class="disease-tag">🟠 Daun Keriting <em>(PYLCV)</em></span>
+              <span class="disease-tag">🔴 Virus Kuning <em>(Begomovirus)</em></span>
+              <span class="disease-tag">🟣 Kutu Kebul <em>(Bemisia tabaci)</em></span>
+            </div>
+            <p>Dengan memanfaatkan teknologi <em>Computer Vision</em> dan algoritma <strong>YOLOv26</strong>, CHIFIA menghadirkan solusi deteksi penyakit otomatis yang cepat, presisi, dan dapat diakses dengan mudah oleh petani langsung dari kamera smartphone mereka di kebun.</p>
+          </div>
+          <div class="opsi-highlight-box">
+            <div class="opsi-stat-item">
+              <span class="opsi-stat-label">Ajang Kompetisi</span>
+              <span class="opsi-stat-value">OPSI (Olimpiade Penelitian Siswa Indonesia)</span>
+            </div>
+            <div class="opsi-stat-item">
+              <span class="opsi-stat-label">Lokasi Riset</span>
+              <span class="opsi-stat-value">Perkebunan Cabai Yayasan Al-Kautsar 561</span>
+            </div>
+            <div class="opsi-stat-item">
+              <span class="opsi-stat-label">Bidang Riset</span>
+              <span class="opsi-stat-value">Ilmu Pengetahuan Terapan (IPT)</span>
+            </div>
+            <div class="opsi-stat-item">
+              <span class="opsi-stat-label">Model Prediksi</span>
+              <span class="opsi-stat-value">Deep Learning YOLOv26</span>
+            </div>
+            <div class="opsi-stat-item opsi-metrics-block">
+              <span class="opsi-stat-label">Performa Model (best.pt)</span>
+              <div class="opsi-metrics-grid">
+                <div class="opsi-metric-chip">
+                  <span class="metric-num">94.8%</span>
+                  <span class="metric-lbl">mAP@50</span>
+                </div>
+                <div class="opsi-metric-chip">
+                  <span class="metric-num">88.4%</span>
+                  <span class="metric-lbl">Precision</span>
+                </div>
+                <div class="opsi-metric-chip">
+                  <span class="metric-num">91.2%</span>
+                  <span class="metric-lbl">Recall</span>
+                </div>
+                <div class="opsi-metric-chip">
+                  <span class="metric-num">89.8%</span>
+                  <span class="metric-lbl">F1 Score</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROFIL PENGEMBANG -->
+  <section class="developers-section">
+    <div class="container">
+      <div class="section-header text-center" style="margin-bottom: 28px;">
+        <h2 style="font-size: 32px; margin-bottom: 12px;">Profil Pengembang &amp; Tim Riset</h2>
+        <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto; font-size: 15px;">
+          Tim di balik pengembangan model YOLOv26, arsitektur aplikasi web CHIFIA, dan riset validasi medis tanaman cabai OPSI.
+        </p>
+      </div>
+
+      <div class="developer-profile-grid">
+
+        <!-- Profil 1: Atma Raga Sadina -->
+        <div class="developer-profile-card">
+          <div class="dev-avatar-header">
+            <div class="dev-avatar-circle">
+              <img src="/static/img/avatar_atma.jpg" alt="Atma Raga Sadina" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"/>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2ecc71" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div class="dev-name-title">
+              <h4>Atma Raga Sadina</h4>
+              <span class="dev-tag">Siswa Peserta OPSI (Ketua Tim)</span>
+            </div>
+          </div>
+          <p class="dev-bio">
+            Fokus pada <strong>Pengembangan AI &amp; Software</strong> — Merancang arsitektur kecerdasan buatan berbasis model YOLOv26, pelatihan dataset `best.pt`, optimasi inferensi real-time, serta membangun sistem backend Flask dan antarmuka web CHIFIA.
+          </p>
+        </div>
+
+        <!-- Profil 2: Shifan Shalih Adiluhung -->
+        <div class="developer-profile-card">
+          <div class="dev-avatar-header">
+            <div class="dev-avatar-circle">
+              <img src="/static/img/avatar_shifan.jpg" alt="Shifan Shalih Adiluhung" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"/>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2ecc71" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div class="dev-name-title">
+              <h4>Shifan Shalih Adiluhung</h4>
+              <span class="dev-tag">Siswa Peserta OPSI (Anggota Tim)</span>
+            </div>
+          </div>
+          <p class="dev-bio">
+            Fokus pada <strong>Riset Agrikultur &amp; Data</strong> — Bertanggung jawab atas pengumpulan sampel citra daun cabai di lapangan, anotasi dataset penyakit, pengujian validasi akurasi deteksi, serta perumusan rekomendasi penanganan medis tanaman.
+          </p>
+        </div>
+
+        <!-- Profil 3: Rosi Maelani, S.Kom. -->
+        <div class="developer-profile-card">
+          <div class="dev-avatar-header">
+            <div class="dev-avatar-circle">
+              <img src="/static/img/avatar_rosi.jpg" alt="Rosi Maelani, S.Kom." onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"/>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2ecc71" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+            </div>
+            <div class="dev-name-title">
+              <h4>Rosi Maelani, S.Kom.</h4>
+              <span class="dev-tag">Guru Pembimbing Tim OPSI</span>
+            </div>
+          </div>
+          <p class="dev-bio">
+            Fokus pada <strong>Supervisi Metodologi &amp; Pengarah Riset</strong> — Memberikan bimbingan kaidah karya ilmiah, supervisi penyusunan laporan naskah riset OPSI, pengarahan pengujian eksperimental model YOLOv26, dan evaluasi hasil validasi.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer-landing">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col brand-col">
+          <div class="brand-logo" style="display:flex; align-items:center;">
+            <img src="/static/img/logo_chifia.png" alt="Chifia Logo" style="width:40px;height:40px;object-fit:cover;border-radius:50%;"/>
+            <span style="font-size:28px; font-family:'Outfit',sans-serif; font-weight:800; color:#ffffff; margin-left:10px;">Chifia</span>
+          </div>
+          <p>Sistem kecerdasan buatan terpadu berbasis model YOLOv26 untuk deteksi &amp; identifikasi penyakit tanaman cabai di Indonesia secara real-time.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navigasi</h4>
+          <a href="/">Beranda</a>
+          <a href="/deteksi">Deteksi YOLOv26</a>
+          <a href="/#artikel">Artikel &amp; Panduan</a>
+          <a href="/about">Tentang CHIFIA</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Penyakit Cabai</h4>
+          <a href="/#artikel">Bercak Daun (Cercospora capsici)</a>
+          <a href="/#artikel">Daun Keriting (PYLCV)</a>
+          <a href="/#artikel">Virus Kuning (Begomovirus)</a>
+          <a href="/#artikel">Kutu Kebul (Bemisia tabaci)</a>
+          <a href="/#artikel">Daun Sehat</a>
+        </div>
+
+        <div class="footer-col contact-col">
+          <h4>Kontak &amp; Layanan</h4>
+          <p style="display:flex; align-items:center; gap:10px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            info@chifia.id
+          </p>
+          <p style="display:flex; align-items:center; gap:10px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Indonesia
+          </p>
+          <p style="display:flex; align-items:center; gap:10px; font-size:12px; color:#64748b; margin-top:12px;">
+            Karya Inovasi OPSI 2026
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 CHIFIA (Chili Intelligent Farming with AI). Hak Cipta Dilindungi.</p>
+        <p style="display:flex; align-items:center; gap:6px;">
+          Dibuat dengan 
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#ef4444" stroke="none"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> 
+          untuk Petani Indonesia
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      if (menu) menu.classList.toggle('active');
+    }
+  </script>
+</body>
+</html>
