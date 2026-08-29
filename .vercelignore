@@ -1,0 +1,8 @@
+UI/
+model/best.pt
+run.bat
+scratch.py
+__pycache__/
+*.pyc
+.git/
+.vscode/
