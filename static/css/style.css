@@ -41,7 +41,7 @@ body {
 ::-webkit-scrollbar-thumb { background: var(--green-2); border-radius: 3px; }
 
 /* ── LAYOUT ──────────────────────────────────────────────── */
-.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
 
 /* ── NAVBAR ──────────────────────────────────────────────── */
 .navbar {
@@ -105,7 +105,7 @@ body {
 }
 @keyframes pulse { 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.4);opacity:0.6} }
 .hero-title {
-  font-family: 'Outfit', sans-serif; font-size: clamp(32px, 5vw, 56px);
+  font-family: 'Outfit', sans-serif; font-size: clamp(26px, 5vw, 56px);
   font-weight: 900; line-height: 1.1; margin-bottom: 20px; color: var(--text-1);
 }
 .gradient-text {
@@ -514,15 +514,65 @@ body {
 /* ── RESPONSIVE ───────────────────────────────────────────── */
 @media (max-width: 900px) {
   .detector-grid { grid-template-columns: 1fr; }
-  .hero-stats { flex-wrap: wrap; }
+  .hero-stats { flex-wrap: wrap; gap: 16px; }
   .workflow { flex-direction: column; }
   .wf-arrow { display: none; }
+  .about-chifia-grid { grid-template-columns: 1fr; }
+  .developers-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hero { padding: 90px 0 50px; }
+  .hero-content { max-width: 100%; }
+  .hero-stats { gap: 12px; }
+  .stat-num { font-size: 22px; }
+  .section-desc { font-size: 15px; margin-bottom: 32px; }
+  .disease-grid { grid-template-columns: repeat(2, 1fr); }
+  .yolo-explain { grid-template-columns: 1fr; }
+  .benefit-grid { grid-template-columns: 1fr; }
+  .tech-grid { grid-template-columns: repeat(2, 1fr); }
+  .about-chifia-box { padding: 24px 20px; }
+  .about-stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .about-stat-val { font-size: 22px; }
+  .developers-grid { grid-template-columns: 1fr; }
+  .developer-card { padding: 24px 20px; }
 }
 @media (max-width: 600px) {
+  .container { padding: 0 14px; }
   .nav-links { gap: 4px; }
   .nav-link { padding: 6px 10px; font-size: 13px; }
   .brand-sub { display: none; }
-  .hero { padding: 100px 0 50px; }
+  .hero { padding: 90px 0 40px; }
+  .hero-title { font-size: clamp(24px, 7vw, 36px); }
+  .hero-desc { font-size: 15px; line-height: 1.6; }
+  .hero-stats { flex-wrap: wrap; gap: 12px; }
+  .stat-num { font-size: 20px; }
+  .stat-lbl { font-size: 10px; }
   .disease-grid { grid-template-columns: 1fr 1fr; }
   .loader-steps { display: none; }
+  .panel { border-radius: var(--radius-md); }
+  .panel-header { padding: 16px 16px 0; }
+  .tab-content { padding: 16px; }
+  .dropzone { padding: 36px 16px; }
+  .btn-detect { width: calc(100% - 32px); margin: 0 16px 16px; }
+  .result-state { padding: 16px; }
+  .det-card { padding: 12px 14px; }
+  .det-label { font-size: 14px; }
+  .det-icon { font-size: 22px; }
+  .about-chifia-box { padding: 20px 16px; }
+  .about-stats-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .tech-grid { grid-template-columns: repeat(2, 1fr); }
+  .benefit-grid { grid-template-columns: 1fr; }
+  .wf-step { min-width: 120px; padding: 18px 12px; }
+  .wf-icon { font-size: 26px; }
+  .wf-title { font-size: 14px; }
+}
+@media (max-width: 400px) {
+  .container { padding: 0 12px; }
+  .hero-title { font-size: 22px; }
+  .stat-num { font-size: 18px; }
+  .disease-grid { grid-template-columns: 1fr; }
+  .tech-grid { grid-template-columns: 1fr 1fr; }
+  .about-stats-grid { grid-template-columns: 1fr 1fr; }
+  .about-stat-val { font-size: 20px; }
 }

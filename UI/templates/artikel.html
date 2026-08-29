@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>{{ artikel.title }} — CHIFIA</title>
+  <meta name="description" content="Artikel CHIFIA tentang {{ artikel.title }}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/css/landing.css" />
+</head>
+<body class="bg-light-theme">
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <a href="/" class="nav-brand">
+        <div class="brand-logo">
+          <img src="/static/img/logo_chifia.png" alt="Chifia Logo" style="width:40px;height:40px;object-fit:contain;"/>
+          <span style="font-size:28px; font-weight:800; margin-left:8px;">Chifia</span>
+        </div>
+      </a>
+      <div class="nav-links">
+        <a href="/" class="nav-link">Beranda</a>
+        <a href="/#artikel" class="nav-link active">Artikel</a>
+        <a href="/about" class="nav-link">Tentang</a>
+      </div>
+      <div class="nav-right">
+        <a href="/deteksi" class="btn btn-primary nav-cta">Mulai Deteksi &rarr;</a>
+        <button class="nav-hamburger" onclick="toggleMobileMenu()">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="/" class="mobile-link">Beranda</a>
+    <a href="/#artikel" class="mobile-link active">Artikel</a>
+    <a href="/about" class="mobile-link">Tentang</a>
+    <div class="mobile-cta">
+      <a href="/deteksi" class="btn btn-primary">Mulai Deteksi &rarr;</a>
+    </div>
+  </div>
+
+  <section class="article-detail-section pt-header" style="padding-top: 80px; padding-bottom: 60px;">
+    <div class="container" style="max-width: 800px;">
+      <article class="article-detail">
+        <header class="article-header" style="margin-bottom: 32px; text-align: center;">
+          <h1 class="article-title" style="font-size: clamp(20px, 5vw, 32px); font-weight: 800; margin-bottom: 12px;">{{ artikel.title }}</h1>
+          <div class="article-meta" style="color: var(--text-muted); font-size: 14px;">
+            <span class="article-category">{{ artikel.category }}</span> • 
+            <span class="article-date">{{ artikel.date }}</span>
+          </div>
+        </header>
+        <figure class="article-hero" style="margin-bottom: 32px;">
+          <img src="{{ artikel.image }}" alt="{{ artikel.title }}" style="width: 100%; max-height: 420px; object-fit: cover; border-radius: 16px; box-shadow: 0 8px 30px rgba(0,0,0,0.08);" onerror="this.src='/static/img/hero.png'" />
+        </figure>
+        <div class="article-content" style="font-size: clamp(14px, 2vw, 16px); line-height: 1.8; color: var(--text-primary);">
+          {{ artikel.content|safe }}
+        </div>
+        {% if artikel.source %}
+        <div class="article-source-box" style="margin-top: 32px; padding: 16px 24px; background: #f8fafc; border-radius: 12px; border: 1px solid #e2e8f0; text-align: center;">
+          <span style="font-weight: 600; color: var(--text-muted);">SUMBER RESMI:</span> 
+          <a href="{{ artikel.source }}" target="_blank" rel="noopener" style="color: var(--primary-green); font-weight: 700; word-break: break-all; margin-left: 6px;">{{ artikel.source }}</a>
+        </div>
+        {% endif %}
+        <footer class="article-footer" style="margin-top: 48px; text-align: center;">
+          <a href="/" class="btn btn-primary" style="padding: 12px 28px; font-size: 16px; border-radius: 50px;">← Kembali ke Beranda</a>
+        </footer>
+      </article>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer-landing">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col brand-col">
+          <div class="brand-logo" style="display:flex; align-items:center;">
+            <img src="/static/img/logo_chifia.png" alt="Chifia Logo" style="width:40px;height:40px;object-fit:cover;border-radius:50%;"/>
+            <span style="font-size:28px; font-family:'Outfit',sans-serif; font-weight:800; color:#ffffff; margin-left:10px;">Chifia</span>
+          </div>
+          <p>Sistem kecerdasan buatan terpadu berbasis model YOLOv26 untuk deteksi &amp; identifikasi penyakit tanaman cabai di Indonesia secara real-time.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navigasi</h4>
+          <a href="/">Beranda</a>
+          <a href="/deteksi">Deteksi YOLOv26</a>
+          <a href="/#artikel">Artikel &amp; Panduan</a>
+          <a href="/about">Tentang CHIFIA</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Penyakit Cabai</h4>
+          <a href="/#artikel">Bercak Daun (Cercospora capsici)</a>
+          <a href="/#artikel">Daun Keriting (PYLCV)</a>
+          <a href="/#artikel">Virus Kuning (Begomovirus)</a>
+          <a href="/#artikel">Kutu Kebul (Bemisia tabaci)</a>
+          <a href="/#artikel">Daun Sehat</a>
+        </div>
+
+        <div class="footer-col contact-col">
+          <h4>Kontak &amp; Layanan</h4>
+          <p style="display:flex; align-items:center; gap:10px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            info@chifia.id
+          </p>
+          <p style="display:flex; align-items:center; gap:10px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Indonesia
+          </p>
+          <p style="display:flex; align-items:center; gap:10px; font-size:12px; color:#64748b; margin-top:12px;">
+            CHIFIA Web App v2.0
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 CHIFIA (Chili Intelligent Farming with AI). Hak Cipta Dilindungi.</p>
+        <p style="display:flex; align-items:center; gap:6px;">
+          Dibuat dengan 
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#ef4444" stroke="none"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> 
+          untuk Petani Indonesia
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      if (menu) menu.classList.toggle('active');
+    }
+  </script>
+</body>
+</html>

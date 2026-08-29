@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Deteksi Penyakit — CHIFIA</title>
+  <meta name="description" content="Deteksi penyakit tanaman cabai dengan YOLOv26. Upload foto dan dapatkan hasil analisis instan."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/static/css/landing.css"/>
+  <link rel="stylesheet" href="/static/css/deteksi-light.css?v=3"/>
+</head>
+<body class="bg-light-theme">
+
+  <!-- MINIMAL TOPBAR (Detection page - focused mode) -->
+  <header class="deteksi-topbar">
+    <div class="container deteksi-topbar-inner">
+      <!-- Back to home -->
+      <a href="/" class="topbar-back">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        Beranda
+      </a>
+      <!-- Logo center -->
+      <a href="/" class="topbar-logo" style="display:inline-flex; align-items:center; gap:8px; text-decoration:none;">
+        <img src="/static/img/logo_chifia.png" alt="Chifia Logo" style="width:28px;height:28px;object-fit:contain;"/>
+        <span style="font-weight:800; font-size:22px; color:var(--text-primary); font-family:'Outfit',sans-serif;">Chifia</span>
+      </a>
+      <div class="topbar-mode">
+        <span class="badge-dot-sm"></span> YOLOv26
+      </div>
+    </div>
+  </header>
+
+
+  <!-- MAIN CONTENT -->
+  <main class="deteksi-main">
+    <div class="container">
+
+      <!-- PAGE HEADER -->
+      <div class="deteksi-page-header">
+        <div class="deteksi-badge">
+          <span class="badge-dot"></span>
+          YOLOv26 · {{ model_mode|upper }} Mode
+        </div>
+        <h1>Deteksi Penyakit Tanaman Cabai</h1>
+        <p>Upload foto daun cabai Anda, model AI akan menganalisis dan memberikan hasil secara instan.</p>
+      </div>
+
+      <!-- DETECTOR GRID -->
+      <div class="detector-grid-light">
+
+        <!-- LEFT: INPUT PANEL -->
+        <div class="panel-light" id="inputPanel">
+          <div class="panel-header-light">
+            <div class="panel-title-light"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:6px;vertical-align:-3px"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg> Input Gambar</div>
+            
+            <div class="tab-switcher-light">
+              <button class="tab-btn-light active" id="tabUpload" onclick="switchTab('upload')">Upload</button>
+              <button class="tab-btn-light" id="tabCamera" onclick="switchTab('camera')">Kamera</button>
+            </div>
+          </div>
+
+          <div class="tab-content-light">
+            <div id="dropzoneContainer">
+              <input type="file" id="fileInput" accept="image/*" style="display:none" onchange="handleFileSelect(event)">
+              
+              <!-- Upload Mode -->
+              <div class="dropzone-light" id="dropzoneArea" onclick="document.getElementById('fileInput').click()" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)">
+                <div class="dropzone-icon-light">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                </div>
+                <div class="dropzone-text-light"><strong>Klik untuk upload</strong> atau drag & drop</div>
+                <div class="dropzone-hint-light">JPG, PNG, WEBP · Maks 16MB</div>
+              </div>
+              
+              <!-- Preview Mode -->
+              <div class="preview-container-light" id="previewContainer" style="display:none">
+                <img id="previewImg" class="preview-img-light" />
+                <button class="btn-clear-light" onclick="clearUpload()">✕ Batal</button>
+              </div>
+            </div>
+
+            <!-- Camera Mode -->
+            <div id="cameraContent" style="display:none">
+              <div class="camera-container-light">
+                <div class="camera-placeholder" id="cameraPlaceholder">
+                  <div style="text-align:center;color:#64748b">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-bottom:10px"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                    <div style="font-size:13px">Klik tombol di bawah untuk mengaktifkan kamera</div>
+                  </div>
+                </div>
+                
+                <video id="cameraVideo" class="camera-video-light" autoplay playsinline style="display:none"></video>
+                <div class="camera-overlay-light" id="cameraOverlay" style="display:none">
+                  <div class="camera-frame-light"></div>
+                </div>
+                <canvas id="cameraCanvas" style="display:none"></canvas>
+                
+                <div class="camera-captured-light" id="cameraCaptured" style="display:none">
+                  <img id="capturedImg" style="width:100%;display:block;max-height:300px;object-fit:cover"/>
+                  <button class="btn btn-outline" style="position:absolute;bottom:12px;right:12px;padding:6px 14px;font-size:12px;background:rgba(255,255,255,0.95)" onclick="retakePhoto()">🔄 Foto Ulang</button>
+                </div>
+              </div>
+              
+              <div class="camera-controls-light">
+                <button class="btn btn-primary" id="btnStartCam" onclick="startCamera()" style="flex:1;padding:12px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg> Buka Kamera</button>
+                <button class="btn btn-primary" id="btnCapture" onclick="capturePhoto()" style="display:none;flex:1;background:#166534;border-color:#166534"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="3"></circle></svg> Ambil Foto</button>
+                <button class="btn btn-outline" id="btnStopCam" onclick="stopCamera()" style="display:none;flex:1;color:#ef4444;border-color:#ef4444">⏹ Stop</button>
+              </div>
+            </div>
+          </div>
+          
+          <div style="padding:0 24px 24px">
+            <button class="btn btn-primary btn-detect-main" id="btnDetect" onclick="runDetection()" disabled>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              Deteksi Sekarang
+            </button>
+          </div>
+        </div>
+
+        <!-- RIGHT: RESULT PANEL -->
+        <div class="panel-light result-panel-light" id="resultPanel" style="display:none">
+
+
+          <!-- LOADING STATE -->
+          <div id="loadingState" style="display:none;flex-direction:column;align-items:center;justify-content:center;padding:60px 24px;text-align:center;min-height:400px">
+            <div class="loader-ring-light" style="margin-bottom:20px"></div>
+            <div style="font-family:'Outfit',sans-serif;font-size:18px;font-weight:700;margin-bottom:8px">Menganalisis...</div>
+            <div style="font-size:13px;color:#64748b">Model YOLOv26 sedang memproses gambar</div>
+          </div>
+
+          <!-- RESULT STATE -->
+          <div id="resultState" style="display:none;padding:20px 24px">
+            <h4 style="font-family:'Outfit',sans-serif;font-size:24px;font-weight:800;color:#16a34a;margin-bottom:20px;text-align:center;">Hasil Prediksi</h4>
+            <div class="result-header-light" id="resultHeader"></div>
+            
+            <div class="result-content-grid">
+              <!-- Left: Image -->
+              <div style="position:relative">
+                <img id="annotatedImg" style="width:100%;border-radius:12px;border:1px solid #e2e8f0;display:block;background:#f8fafc;max-height:360px;object-fit:contain" alt="Hasil Deteksi"/>
+                <div style="position:absolute;bottom:10px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,0.95);color:#16a34a;padding:4px 14px;border-radius:20px;font-size:11px;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,0.1);border:1px solid #bbf7d0;white-space:nowrap">📸 Hasil YOLOv26</div>
+              </div>
+              
+              <!-- Right: Detections List -->
+              <div>
+                <div class="detections-list-light" id="detectionsList"></div>
+              </div>
+            </div>
+
+            <button class="btn btn-outline" style="width:100%;margin-top:16px" onclick="resetResult()">🔄 Deteksi Baru</button>
+          </div>
+
+        </div>
+
+      </div><!-- end detector-grid -->
+    </div><!-- end container -->
+  </main>
+
+  <!-- SIMPLE FOOTER -->
+  <footer style="background:#f8fafc;border-top:1px solid #e2e8f0;padding:24px;text-align:center;margin-top:40px">
+    <p style="font-size:13px;color:#94a3b8">© 2026 Chifia · Deteksi Penyakit Tanaman Cabai dengan YOLOv26</p>
+  </footer>
+
+  <script src="/static/js/app.js?v=9"></script>
+</body>
+</html>
