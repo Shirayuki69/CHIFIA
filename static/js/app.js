@@ -25,10 +25,12 @@ let activeTab        = 'upload';
 // ────────────────────────────────────────────────
 function switchTab(tab) {
   activeTab = tab;
-  document.getElementById('tabUpload').classList.toggle('active', tab === 'upload');
-  document.getElementById('tabCamera').classList.toggle('active', tab === 'camera');
-  document.getElementById('dropzoneContainer').style.display = tab === 'upload' ? 'block' : 'none';
-  document.getElementById('cameraContent').style.display = tab === 'camera' ? 'block' : 'none';
+  document.getElementById('tabUpload')?.classList.toggle('active', tab === 'upload');
+  document.getElementById('tabCamera')?.classList.toggle('active', tab === 'camera');
+  const dz = document.getElementById('dropzoneContainer');
+  if (dz) dz.style.display = tab === 'upload' ? 'block' : 'none';
+  const cc = document.getElementById('cameraContent');
+  if (cc) cc.style.display = tab === 'camera' ? 'block' : 'none';
 
   if (tab !== 'camera') stopCamera();
   currentImageData = null;
@@ -46,27 +48,30 @@ function handleFileSelect(e) {
 
 function handleDrop(e) {
   e.preventDefault();
-  document.getElementById('dropzone').classList.remove('drag-over');
+  document.getElementById('dropzone')?.classList.remove('drag-over');
   const file = e.dataTransfer.files[0];
   if (file && file.type.startsWith('image/')) previewFile(file);
 }
 
 function handleDragOver(e) {
   e.preventDefault();
-  document.getElementById('dropzone').classList.add('drag-over');
+  document.getElementById('dropzone')?.classList.add('drag-over');
 }
 
 function handleDragLeave(e) {
-  document.getElementById('dropzone').classList.remove('drag-over');
+  document.getElementById('dropzone')?.classList.remove('drag-over');
 }
 
 function previewFile(file) {
   const reader = new FileReader();
   reader.onload = (ev) => {
     currentImageData = ev.target.result;
-    document.getElementById('previewImg').src = currentImageData;
-    document.getElementById('previewContainer').style.display = 'block';
-    document.getElementById('dropzoneArea').style.display = 'none';
+    const pi = document.getElementById('previewImg');
+    if (pi) pi.src = currentImageData;
+    const pc = document.getElementById('previewContainer');
+    if (pc) pc.style.display = 'block';
+    const da = document.getElementById('dropzoneArea');
+    if (da) da.style.display = 'none';
     updateDetectBtn();
   };
   reader.readAsDataURL(file);
@@ -74,9 +79,12 @@ function previewFile(file) {
 
 function clearUpload() {
   currentImageData = null;
-  document.getElementById('previewContainer').style.display = 'none';
-  document.getElementById('dropzoneArea').style.display = '';
-  document.getElementById('fileInput').value = '';
+  const pc = document.getElementById('previewContainer');
+  if (pc) pc.style.display = 'none';
+  const da = document.getElementById('dropzoneArea');
+  if (da) da.style.display = '';
+  const fi = document.getElementById('fileInput');
+  if (fi) fi.value = '';
   updateDetectBtn();
   showEmpty();
 }
@@ -91,14 +99,19 @@ async function startCamera() {
       audio: false
     });
     const video = document.getElementById('cameraVideo');
-    video.srcObject = cameraStream;
-    video.style.display = 'block';
-    document.getElementById('cameraOverlay').style.display = 'flex';
-    document.getElementById('cameraPlaceholder').style.display = 'none'; // Sembunyikan placeholder
-    document.getElementById('cameraCaptured').style.display = 'none'; // Pastikan hasil foto disembunyikan
-    document.getElementById('btnStartCam').style.display = 'none';
-    document.getElementById('btnCapture').style.display = 'inline-flex';
-    document.getElementById('btnStopCam').style.display = 'inline-flex';
+    if (video) { video.srcObject = cameraStream; video.style.display = 'block'; }
+    const ov = document.getElementById('cameraOverlay');
+    if (ov) ov.style.display = 'flex';
+    const cp = document.getElementById('cameraPlaceholder');
+    if (cp) cp.style.display = 'none';
+    const cc = document.getElementById('cameraCaptured');
+    if (cc) cc.style.display = 'none';
+    const bStart = document.getElementById('btnStartCam');
+    if (bStart) bStart.style.display = 'none';
+    const bCap = document.getElementById('btnCapture');
+    if (bCap) bCap.style.display = 'inline-flex';
+    const bStop = document.getElementById('btnStopCam');
+    if (bStop) bStop.style.display = 'inline-flex';
   } catch (err) {
     alert('Tidak dapat mengakses kamera: ' + err.message);
   }
@@ -107,24 +120,31 @@ async function startCamera() {
 function capturePhoto() {
   const video  = document.getElementById('cameraVideo');
   const canvas = document.getElementById('cameraCanvas');
+  if (!video || !canvas) return;
   canvas.width  = video.videoWidth;
   canvas.height = video.videoHeight;
   canvas.getContext('2d').drawImage(video, 0, 0);
   currentImageData = canvas.toDataURL('image/jpeg', 0.9);
 
-  document.getElementById('capturedImg').src = currentImageData;
-  document.getElementById('cameraVideo').style.display = 'none';
-  document.getElementById('cameraOverlay').style.display = 'none';
-  document.getElementById('cameraCaptured').style.display = 'block';
-  document.getElementById('btnCapture').style.display = 'none';
-  document.getElementById('btnStopCam').style.display = 'none';
+  const ci = document.getElementById('capturedImg');
+  if (ci) ci.src = currentImageData;
+  video.style.display = 'none';
+  const ov = document.getElementById('cameraOverlay');
+  if (ov) ov.style.display = 'none';
+  const cc = document.getElementById('cameraCaptured');
+  if (cc) cc.style.display = 'block';
+  const bCap = document.getElementById('btnCapture');
+  if (bCap) bCap.style.display = 'none';
+  const bStop = document.getElementById('btnStopCam');
+  if (bStop) bStop.style.display = 'none';
   stopCamera(false);
   updateDetectBtn();
 }
 
 function retakePhoto() {
   currentImageData = null;
-  document.getElementById('cameraCaptured').style.display = 'none';
+  const cc = document.getElementById('cameraCaptured');
+  if (cc) cc.style.display = 'none';
   updateDetectBtn();
   startCamera();
 }
@@ -152,7 +172,8 @@ function stopCamera(clearStream = true) {
 // DETECT BUTTON STATE
 // ────────────────────────────────────────────────
 function updateDetectBtn() {
-  document.getElementById('btnDetect').disabled = !currentImageData;
+  const btn = document.getElementById('btnDetect');
+  if (btn) btn.disabled = !currentImageData;
 }
 
 // ────────────────────────────────────────────────
@@ -163,7 +184,7 @@ async function runDetection() {
 
   showLoading();
   const btn = document.getElementById('btnDetect');
-  btn.disabled = true;
+  if (btn) btn.disabled = true;
 
   try {
     const resp = await fetch('/detect', {
@@ -178,7 +199,7 @@ async function runDetection() {
     showEmpty();
     alert('Gagal mendeteksi: ' + err.message);
   } finally {
-    btn.disabled = !currentImageData;
+    if (btn) btn.disabled = !currentImageData;
   }
 }
 
@@ -186,16 +207,21 @@ async function runDetection() {
 // STATE MANAGERS (use display directly — more reliable)
 // ────────────────────────────────────────────────
 function setPanel(which) {
-  // Panel toggles
-  document.getElementById('inputPanel').style.display = which === 'empty' ? 'flex' : 'none';
-  document.getElementById('resultPanel').style.display = (which === 'loading' || which === 'result') ? 'flex' : 'none';
+  const inputPanel = document.getElementById('inputPanel');
+  const resultPanel = document.getElementById('resultPanel');
+  const loadingState = document.getElementById('loadingState');
+  const resultState = document.getElementById('resultState');
 
-  // Result content toggles
-  document.getElementById('loadingState').style.display = which === 'loading' ? 'flex' : 'none';
-  document.getElementById('resultState').style.display  = which === 'result'  ? 'block' : 'none';
+  if (inputPanel) inputPanel.style.display = which === 'empty' ? 'flex' : 'none';
+  if (resultPanel) resultPanel.style.display = (which === 'loading' || which === 'result') ? 'flex' : 'none';
+
+  if (loadingState) loadingState.style.display = which === 'loading' ? 'flex' : 'none';
+  if (resultState) resultState.style.display  = which === 'result'  ? 'block' : 'none';
 }
+
 function showEmpty()   { setPanel('empty'); }
 function showLoading() { setPanel('loading'); }
+
 function resetResult() {
   if (activeTab === 'upload') {
     clearUpload();
@@ -213,8 +239,10 @@ function showResult(data) {
 
   // Annotated image
   const img = document.getElementById('annotatedImg');
-  img.src = data.annotated_image;
-  img.style.display = 'block';
+  if (img) {
+    img.src = data.annotated_image;
+    img.style.display = 'block';
+  }
 
   // Summary header
   const s = data.summary;
@@ -223,15 +251,18 @@ function showResult(data) {
   };
   const col = statusColor[s.status] || '#888';
   const hdr = document.getElementById('resultHeader');
-  hdr.className = `result-header-light status-${s.status}`;
-  hdr.innerHTML = `
-    <div style="font-size:18px;font-weight:800;color:${col};margin-bottom:6px">${s.message}</div>
-    <div style="font-size:13px;color:#334155">${s.recommendation}</div>
-    <div style="margin-top:8px;font-size:12px;color:#94a3b8">🔍 ${data.total} objek terdeteksi · Mode: ${data.mode.toUpperCase()}</div>
-  `;
+  if (hdr) {
+    hdr.className = `result-header-light status-${s.status}`;
+    hdr.innerHTML = `
+      <div style="font-size:18px;font-weight:800;color:${col};margin-bottom:6px">${s.message}</div>
+      <div style="font-size:13px;color:#334155">${s.recommendation}</div>
+      <div style="margin-top:8px;font-size:12px;color:#94a3b8">🔍 ${data.total} objek terdeteksi · Mode: ${data.mode.toUpperCase()}</div>
+    `;
+  }
 
   // Detection cards
   const list = document.getElementById('detectionsList');
+  if (!list) return;
   list.innerHTML = '';
 
   if (!data.detections || data.detections.length === 0) {
@@ -284,28 +315,17 @@ function showResult(data) {
 }
 
 // ────────────────────────────────────────────────
-// RESET
-// ────────────────────────────────────────────────
-function resetResult() {
-  clearUpload();
-  if (activeTab === 'camera') {
-    const cap = document.getElementById('cameraCaptured');
-    if (cap) cap.style.display = 'none';
-  }
-  currentImageData = null;
-  updateDetectBtn();
-  showEmpty();
-}
-
-// ────────────────────────────────────────────────
 // INIT
 // ────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
+  const uploadTab = document.getElementById('uploadTab');
+  if (!uploadTab) return; // Exit if not on deteksi page
+
   showEmpty();
-  // Init tab display
-  document.getElementById('uploadTab').style.display = 'block';
-  document.getElementById('cameraTab').style.display = 'none';
-  // Camera button visibility
+  uploadTab.style.display = 'block';
+  const cameraTab = document.getElementById('cameraTab');
+  if (cameraTab) cameraTab.style.display = 'none';
+
   const btnCap  = document.getElementById('btnCapture');
   const btnStop = document.getElementById('btnStopCam');
   if (btnCap)  btnCap.style.display  = 'none';
